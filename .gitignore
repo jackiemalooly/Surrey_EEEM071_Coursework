@@ -145,6 +145,7 @@ runs
 # data
 data/*
 serialization_dir
+VeRi
 
 # emacs
 *.*~
