@@ -1,5 +1,6 @@
 # Copyright (c) EEEM071, University of Surrey
 
+import csv
 import datetime
 import os
 import os.path as osp
@@ -49,8 +50,8 @@ def main():
     log_name = "log_test.txt" if args.evaluate else "log_train.txt"
     sys.stdout = Logger(osp.join(args.save_dir, log_name))
     print("==========")
-    student_id = os.environ.get('STUDENT_ID', '<your id>')
-    student_name = os.environ.get('STUDENT_NAME', '<your name>')
+    student_id = os.environ.get('STUDENT_ID', '6861173')
+    student_name = os.environ.get('STUDENT_NAME', 'Jackie Malooly')
     print("Student ID:{}".format(student_id))
     print("Student name:{}".format(student_name))
     print("UUID:{}".format(uuid.uuid4()))
@@ -114,6 +115,20 @@ def main():
                     topk=20,
                 )
         return
+    
+    # Initialize CSV files for logging
+    train_csv_path = osp.join(args.save_dir, "train_log.csv")
+    eval_csv_path = osp.join(args.save_dir, "eval_log.csv")
+
+    with open(train_csv_path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(['epoch', 'batch', 'total_batches', 'time_val', 'time_avg',
+                         'data_val', 'data_avg', 'xent_val', 'xent_avg',
+                         'htri_val', 'htri_avg', 'acc_val', 'acc_avg'])
+
+    with open(eval_csv_path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(['epoch', 'dataset', 'mAP', 'rank1', 'rank5', 'rank10', 'rank20'])  
 
     time_start = time.time()
     ranklogger = RankLogger(args.source_names, args.target_names)
@@ -138,6 +153,7 @@ def main():
             optimizer,
             trainloader,
             use_gpu,
+            train_csv_path,
         )
 
         scheduler.step()
@@ -154,7 +170,7 @@ def main():
                 print(f"Evaluating {name} ...")
                 queryloader = testloader_dict[name]["query"]
                 galleryloader = testloader_dict[name]["gallery"]
-                rank1 = test(model, queryloader, galleryloader, use_gpu)
+                rank1 = test(model, queryloader, galleryloader, use_gpu, eval_csv_path=eval_csv_path)
                 ranklogger.write(name, epoch + 1, rank1)
 
             save_checkpoint(
@@ -175,7 +191,7 @@ def main():
 
 
 def train(
-    epoch, model, criterion_xent, criterion_htri, optimizer, trainloader, use_gpu
+    epoch, model, criterion_xent, criterion_htri, optimizer, trainloader, use_gpu, train_csv_path
 ):
     xent_losses = AverageMeter()
     htri_losses = AverageMeter()
@@ -234,8 +250,26 @@ def train(
                     acc=accs,
                 )
             )
+            # Log to csv for easier analysis
+            with open(train_csv_path, 'a', newline='') as f:
+                      writer = csv.writer(f)
+                      writer.writerow([
+                          epoch + 1, 
+                          batch_idx + 1,
+                          len(trainloader),
+                          batch_time.val,
+                          batch_time.avg,
+                          data_time.val,
+                          data_time.avg,
+                          xent_losses.val,
+                          xent_losses.avg,
+                          htri_losses.val,
+                          htri_losses.avg,
+                          accs.val,
+                          accs.avg,
+                    ])
 
-        end = time.time()
+        end = time.time() 
 
 
 def test(
@@ -245,6 +279,7 @@ def test(
     use_gpu,
     ranks=[1, 5, 10, 20],
     return_distmat=False,
+    eval_csv_path=None,
 ):
     batch_time = AverageMeter()
 
@@ -319,6 +354,18 @@ def test(
     for r in ranks:
         print("Rank-{:<3}: {:.1%}".format(r, cmc[r - 1]))
     print("------------------")
+
+    if eval_csv_path is not None:
+        with open(eval_csv_path, 'a', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                mAP,
+                cmc[0],  # Rank-1
+                cmc[4],  # Rank-5
+                cmc[9],  # Rank-10
+                cmc[19]  # Rank-20
+            ])
+
 
     if return_distmat:
         return distmat
