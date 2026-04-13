@@ -4,7 +4,7 @@ import torch.nn as nn
 import torchvision.models as tvmodels
 
 
-__all__ = ["mobilenet_v3_small", "vgg16"]
+__all__ = ["mobilenet_v3_small", "vgg16", "googlenet", "alexnet"]
 
 
 class TorchVisionModel(nn.Module):
@@ -50,6 +50,26 @@ def vgg16(num_classes, loss={"xent"}, pretrained=True, **kwargs):
 def mobilenet_v3_small(num_classes, loss={"xent"}, pretrained=True, **kwargs):
     model = TorchVisionModel(
         "mobilenet_v3_small",
+        num_classes=num_classes,
+        loss=loss,
+        pretrained=pretrained,
+        **kwargs,
+    )
+    return model
+
+def googlenet(num_classes, loss={"xent"}, pretrained=True, **kwargs):
+    model = TorchVisionModel(
+        "googlenet",
+        num_classes=num_classes,
+        loss=loss,
+        pretrained=pretrained,
+        **kwargs,
+    )
+    return model
+
+def alexnet(num_classes, loss={"xent"}, pretrained=True, **kwargs):
+    model = TorchVisionModel(
+        "alexnet",
         num_classes=num_classes,
         loss=loss,
         pretrained=pretrained,
