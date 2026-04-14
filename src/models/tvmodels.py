@@ -57,7 +57,7 @@ def mobilenet_v3_small(num_classes, loss={"xent"}, pretrained=True, **kwargs):
     )
     return model
 
-def googlenet(num_classes, loss={"xent"}, pretrained=True, **kwargs):
+def googlenet(num_classes, loss={"xent", "htri"}, pretrained=True, **kwargs):
     model = TorchVisionModel(
         "googlenet",
         num_classes=num_classes,
