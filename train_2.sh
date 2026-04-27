@@ -3,7 +3,7 @@
 STUDENT_ID=6861173 STUDENT_NAME="Jackie Malooly" python main.py \
 -s veri \
 -t veri \
--a googlenet \
+-a resnet50 \
 --root /user/HS402/jm02999/Surrey_EEEM071_Coursework \
 --height 224 \
 --width 224 \
@@ -13,4 +13,4 @@ STUDENT_ID=6861173 STUDENT_NAME="Jackie Malooly" python main.py \
 --stepsize 20 40 \
 --train-batch-size 64 \
 --test-batch-size 100 \
---save-dir logs/googlenet-veri
+--save-dir logs/resnet50-veri
