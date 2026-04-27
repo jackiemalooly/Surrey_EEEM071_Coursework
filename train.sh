@@ -13,4 +13,7 @@ STUDENT_ID=6861173 STUDENT_NAME="Jackie Malooly" python main.py \
 --stepsize 20 40 \
 --train-batch-size 64 \
 --test-batch-size 100 \
+--random-erase \
+--color-jitter \
+--color-aug \
 --save-dir logs/googlenet-veri
