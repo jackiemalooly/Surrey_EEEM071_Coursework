@@ -8,6 +8,7 @@ STUDENT_ID=6861173 STUDENT_NAME="Jackie Malooly" python main.py \
 --height 224 \
 --width 224 \
 --optim amsgrad \
+--random-erase \
 --lr 0.0003 \
 --max-epoch 10 \
 --stepsize 20 40 \
