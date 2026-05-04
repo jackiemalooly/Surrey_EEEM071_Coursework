@@ -3,9 +3,8 @@
 STUDENT_ID=6861173 STUDENT_NAME="Jackie Malooly" python main.py \
 -s veri \
 -t veri \
--a resnet50 \
+-a googlenet \
 --evaluate \
---visualize-ranks \
---resume logs/resnet50-veri/model.pth.tar-10 \
+--resume logs/googlenet-color-lr-0.00008-veri/model.pth.tar-10 \
 --root /user/HS402/jm02999/Surrey_EEEM071_Coursework \
---save-dir logs/resnet50-veri \
+--save-dir logs/googlenet-color-lr-0.00008-veri \
