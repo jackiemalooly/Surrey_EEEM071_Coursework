@@ -8,10 +8,11 @@ STUDENT_ID=6861173 STUDENT_NAME="Jackie Malooly" python main.py \
 --height 224 \
 --width 224 \
 --optim amsgrad \
---lr 0.0003 \
+--lr 0.00008 \
 --max-epoch 10 \
 --stepsize 20 40 \
---train-batch-size 64 \
+--train-batch-size 32 \
 --test-batch-size 100 \
+--color-jitter \
 --random-erase \
---save-dir logs/googlenet-random-erase-veri \
+--save-dir logs/googlenet-color-lr-batch-32-veri \
