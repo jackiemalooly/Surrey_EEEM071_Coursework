@@ -5,6 +5,6 @@ STUDENT_ID=6861173 STUDENT_NAME="Jackie Malooly" python main.py \
 -t veri \
 -a googlenet \
 --evaluate \
---resume logs/googlenet-color-lr-batch-16-adam-veri/model.pth.tar-10 \
+--resume logs/googlenet-color-lr-0.003-veri/model.pth.tar-10 \
 --root /user/HS402/jm02999/Surrey_EEEM071_Coursework \
---save-dir logs/googlenet-color-lr-batch-16-adam-veri \
+--save-dir logs/googlenet-color-lr-0.003-veri \

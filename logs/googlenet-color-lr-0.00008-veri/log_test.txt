@@ -1,0 +1,63 @@
+==========
+Student ID:6861173
+Student name:Jackie Malooly
+UUID:de72bc90-d875-4fb7-85ee-f8c89fdb1da6
+Experiment time:2026-05-04 18:42:50
+==========
+==========
+Args:Namespace(root='/user/HS402/jm02999/Surrey_EEEM071_Coursework', source_names=['veri'], target_names=['veri'], workers=4, split_id=0, height=128, width=256, train_sampler='RandomSampler', random_erase=False, color_jitter=False, color_aug=False, optim='adam', lr=0.0003, weight_decay=0.0005, momentum=0.9, sgd_dampening=0, sgd_nesterov=False, rmsprop_alpha=0.99, adam_beta1=0.9, adam_beta2=0.999, max_epoch=60, start_epoch=0, train_batch_size=32, test_batch_size=100, lr_scheduler='multi_step', stepsize=[20, 40], gamma=0.1, label_smooth=False, margin=0.3, num_instances=4, lambda_xent=1, lambda_htri=1, arch='googlenet', no_pretrained=False, load_weights='', evaluate=True, eval_freq=-1, start_eval=0, test_size=800, query_remove=True, print_freq=10, seed=1, resume='logs/googlenet-color-lr-0.00008-veri/model.pth.tar-10', save_dir='logs/googlenet-color-lr-0.00008-veri', use_cpu=False, gpu_devices='0', visualize_ranks=False, use_avai_gpus=False)
+==========
+Currently using GPU 0
+Initializing image data manager
+=> Initializing TRAIN (source) datasets
+=> VeRi loaded
+Image Dataset statistics:
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |   576 |    37778 |        20
+  query    |   200 |     1678 |        19
+  gallery  |   200 |    11579 |        19
+  ----------------------------------------
+=> Initializing TEST (target) datasets
+=> VeRi loaded
+Image Dataset statistics:
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |   576 |    37778 |        20
+  query    |   200 |     1678 |        19
+  gallery  |   200 |    11579 |        19
+  ----------------------------------------
+
+
+  **************** Summary ****************
+  train names      : ['veri']
+  # train datasets : 1
+  # train ids      : 576
+  # train images   : 37778
+  # train cameras  : 20
+  test names       : ['veri']
+  *****************************************
+
+
+Initializing model: googlenet
+Model size: 5.600 M
+Loading checkpoint from "logs/googlenet-color-lr-0.00008-veri/model.pth.tar-10"
+Loaded model weights
+Loaded optimizer
+** previous epoch = 10	 previous rank1 = 83.7%
+Evaluate only
+Evaluating veri ...
+Extracted features for query set, obtained 1678-by-1024 matrix
+Extracted features for gallery set, obtained 11579-by-1024 matrix
+=> BatchTime(s)/BatchSize(img): 0.037/100
+Computing CMC and mAP
+Results ----------
+mAP: 34.2%
+CMC curve
+Rank-1  : 68.4%
+Rank-5  : 83.1%
+Rank-10 : 88.9%
+Rank-20 : 92.4%
+------------------
