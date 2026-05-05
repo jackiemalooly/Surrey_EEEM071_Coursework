@@ -1,0 +1,6 @@
+metric,value
+mAP,3.7
+Rank-1,6.9
+Rank-5,16.5
+Rank-10,24.5
+Rank-20,35.2
