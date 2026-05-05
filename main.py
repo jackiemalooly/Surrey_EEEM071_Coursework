@@ -91,8 +91,10 @@ def main():
     scheduler = init_lr_scheduler(optimizer, **lr_scheduler_kwargs(args))
 
     if args.resume and check_isfile(args.resume):
+        # Only load optimizer state if we're continuing training, not for evaluation
+        optimizer_to_load = None if args.evaluate else optimizer
         args.start_epoch = resume_from_checkpoint(
-            args.resume, model, optimizer=optimizer
+            args.resume, model, optimizer=optimizer_to_load
         )
 
     if args.evaluate:
